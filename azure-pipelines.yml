@@ -19,11 +19,12 @@ steps:
 
 - script: |
     #!/bin/bash
-    set -euo pipefail
+    set -xeuo pipefail
 
-    echo "${COSIGN_PUBLIC_KEY}"
-    # don't worry, the value will get censored
-    echo "${COSIGN_SECRET_KEY}"
+    echo -n "${COSIGN_PUBLIC_KEY}" | wc -c
+    echo -n "${COSIGN_SECRET_KEY}" | wc -c
+    echo -n "${TRUSTIFICATION_OIDC_CLIENT_SECRET}" | wc -c
   env:
     # normal variables are set automatically, but secrets have to be set explicitly :(
     COSIGN_SECRET_KEY: $(COSIGN_SECRET_KEY)
+    TRUSTIFICATION_OIDC_CLIENT_SECRET: $(TRUSTIFICATION_OIDC_CLIENT_SECRET)
